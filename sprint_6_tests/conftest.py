@@ -12,14 +12,18 @@ from sprint_6_tests.pages.order_page import OrderPage
 def driver():
     firefox_options = webdriver.FirefoxOptions()
     driver = webdriver.Firefox(options=firefox_options)
-    driver.get("https://qa-scooter.praktikum-services.ru/")
-    driver.find_element(*MainPageLocators.COOKIE_BUTTON).click()
     yield driver
     driver.quit()
 
 @pytest.fixture(scope='function')
-def main_page(driver):
-    return MainPage(driver)
+def open_main_page(driver):
+    driver.get("https://qa-scooter.praktikum-services.ru/")
+    driver.find_element(*MainPageLocators.COOKIE_BUTTON).click()
+    return driver
+
+@pytest.fixture(scope='function')
+def main_page(open_main_page):
+    return MainPage(open_main_page)
 
 @pytest.fixture(scope='function')
 def order_page(driver):

@@ -1,5 +1,4 @@
 import allure
-
 from sprint_6_tests.locators.main_page_locators import MainPageLocators
 from sprint_6_tests.pages.base_page import BasePage
 
@@ -15,9 +14,13 @@ class MainPage(BasePage):
         locator_answer = locator.format(num)
         return self.get_text_from_element((method, locator_answer))
 
-    @allure.step('Кликаем на кнопку "Закзать"')
+    @allure.step('Кликаем на кнопку "Заказать"')
     def click_order_button(self, is_header_button):
         if is_header_button:
             self.click_on_element(MainPageLocators.ORDER_BUTTON_HEADER)
         else:
             self.click_on_element(MainPageLocators.ORDER_BUTTON_MAIN)
+
+    @allure.step('Проверяем видимость кнопки "Заказать"')
+    def is_order_button_visible(self):
+        return self.is_element_visible(MainPageLocators.ORDER_BUTTON_MAIN)

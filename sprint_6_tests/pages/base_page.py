@@ -35,3 +35,12 @@ class BasePage:
     @allure.step('Переходим на новую вкладку')
     def move_to_next_tab(self):
         self.driver.switch_to.window(self.driver.window_handles[1])
+
+    @allure.step('Проверяем виден элемент или нет')
+    def is_element_visible(self, locator):
+        try:
+            WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(locator))
+            return True
+        except:
+            return False
+
